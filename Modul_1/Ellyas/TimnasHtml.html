@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validasi Formulir Sederhana dengan Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            padding: 0;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 3px;
+            margin: 10px 0;
+            border: 0px solid #ccc;
+            border-radius: 0px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Formulir Pendaftaran</h2>
+        <form id="myForm" onsubmit="return validateForm()">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" placeholder="Masukkan nama">
+            <span id="nameError" class="error"></span>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Masukkan email">
+            <span id="emailError" class="error"></span>
+            
+            <label for="password">Kata Sandi:</label>
+            <input type="password" id="password" placeholder="Masukkan kata sandi">
+            <span id="passwordError" class="error"></span>
+
+            <button type="submit">Daftar</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Mendapatkan nilai dari input
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            
+            var valid = true;
+
+            // Menghapus pesan error sebelumnya
+            document.getElementById('nameError').innerText = '';
+            document.getElementById('emailError').innerText = '';
+            document.getElementById('passwordError').innerText = '';
+
+            // Validasi Nama (tidak boleh kosong)
+            if (name === "") {
+                document.getElementById('nameError').innerText = 'Nama harus diisi.';
+                alert("Nama tidak boleh kosong!");
+                valid = false;
+            }
+
+            // Validasi Email (harus dalam format email)
+            var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+            if (email === "") {
+                document.getElementById('emailError').innerText = 'Email harus diisi.';
+                alert("Email tidak boleh kosong!");
+                valid = false;
+            } else if (!email.match(emailPattern)) {
+                document.getElementById('emailError').innerText = 'Format email tidak valid.';
+                valid = false;
+            }
+
+            // Validasi Password (minimal 6 karakter)
+            if (password === "") {
+                document.getElementById('passwordError').innerText = 'Kata sandi harus diisi.';
+                alert("Kata sandi tidak boleh kosong!");
+                valid = false;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').innerText = 'Kata sandi harus minimal 6 karakter.';
+                valid = false;
+            }
+
+            // Mengembalikan nilai validasi
+            return valid;
+        }
+    </script>
+
+</body>
+</html>
